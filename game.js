@@ -4,6 +4,8 @@ const KEYS = {
     SPACE: 32
 };
 
+const modal = document.querySelector(".modal_back");
+
 let game = {
     running: true,
     ctx: null,
@@ -37,6 +39,7 @@ let game = {
         window.addEventListener("keydown", e => {
             if (e.keyCode === KEYS.SPACE) {
                 this.platform.fire();
+                modal.style.display = "none";
             } else if (e.keyCode === KEYS.LEFT || e.keyCode === KEYS.RIGHT) {
                 this.platform.start(e.keyCode);
             }
@@ -131,7 +134,9 @@ let game = {
         this.ctx.drawImage(this.sprites.ball, this.ball.frame * this.ball.width, 0, this.ball.width, this.ball.height, this.ball.x, this.ball.y, this.ball.width, this.ball.height);
         this.ctx.drawImage(this.sprites.platform, this.platform.x, this.platform.y);
         this.renderBlocks();
+        
         this.ctx.fillText("Score: " + this.score, 15, 20);
+
     },
     renderBlocks() {
         for (let block of this.blocks) {
@@ -146,6 +151,7 @@ let game = {
             this.create();
             this.run();
         });
+       
     },
     end(message) {
         // 1.Остановить игру
@@ -300,6 +306,6 @@ game.platform = {
     }
 };
 
-window.addEventListener("load", () => {
+window.addEventListener("load", () => { 
     game.start();
 });
